@@ -1,1 +1,63 @@
+/* GRID AVIS */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
 
+/* CARTE AVIS (style cohérent avec .product) */
+.review-card {
+    position: relative;
+    background: rgba(17,34,64,0.85);
+    backdrop-filter: blur(6px);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+/* BORDURE ANIMÉE */
+.review-card::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(45deg, #00c6ff, #1d4ed8, #00c6ff);
+    background-size: 300% 300%;
+    border-radius: 15px;
+    z-index: -1;
+    animation: borderAnim 6s linear infinite;
+}
+
+/* HOVER */
+.review-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0,198,255,0.4);
+}
+
+/* TEXTE */
+.review-card .stars {
+    color: #00e5ff;
+    font-size: 18px;
+}
+
+.review-card .name {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #64ffda;
+}
+
+.review-card .text {
+    margin-top: 10px;
+    opacity: 0.85;
+}
+
+/* SCORE GLOBAL */
+.reviews-score {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.8;
+}
