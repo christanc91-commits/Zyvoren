@@ -520,7 +520,22 @@ if(contactTitle){
 }
 
 </script>
+<script>
+let current = 0;
+let target = 0;
 
+window.addEventListener('scroll', () => {
+    target = window.scrollY;
+});
+
+function smoothScroll(){
+    current += (target - current) * 0.08;
+    window.scrollTo(0, current);
+    requestAnimationFrame(smoothScroll);
+}
+
+smoothScroll();
+</script>
 </body>
 </html>
 
