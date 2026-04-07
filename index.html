@@ -1,526 +1,160 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zyvoren - Lunettes de Piscine</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #e6f1ff;
-            overflow-x: hidden;
-            background: #020c1b;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zyvoren</title>
 
-        /* FOND EAU ANIMÉ */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(0,198,255,0.15), transparent 60%),
-                        radial-gradient(circle at 70% 60%, rgba(29,78,216,0.2), transparent 60%),
-                        linear-gradient(120deg, #020c1b, #0a192f, #112240);
-            animation: waterMove 30s linear infinite;
-            will-change: transform;
-            z-index: -3;
-        }
-
-        /* REFLETS PISCINE */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background: repeating-radial-gradient(circle at 50% 50%,
-                        rgba(255,255,255,0.06) 0px,
-                        rgba(255,255,255,0.06) 2px,
-                        transparent 4px,
-                        transparent 40px);
-            animation: causticsMove 20s linear infinite;
-            opacity: 0.3;
-            z-index: -2;
-            mix-blend-mode: overlay;
-            will-change: transform;
-            opacity: 0.4;
-            z-index: -2;
-            mix-blend-mode: overlay;
-        }
-
-        /* LUMIÈRE CURSEUR GLOBALE */
-        .cursor-light {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            pointer-events: none;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0,198,255,0.25) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-
-        @keyframes waterMove {
-            0% { transform: translate(0,0); }
-            50% { transform: translate(-5%, -5%); }
-            100% { transform: translate(0,0); }
-        }
-
-        @keyframes causticsMove {
-            0% { transform: translate(0,0) scale(1); }
-            50% { transform: translate(-10%, -10%) scale(1.2); }
-            100% { transform: translate(0,0) scale(1); }
-        }
-
-        /* NAVBAR FIXE */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            background: rgba(2,12,27,0.85);
-            backdrop-filter: blur(10px);
-            padding: 15px;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: #64ffda;
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        nav a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 0%;
-            height: 2px;
-            background: #00c6ff;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            color: #ffffff;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        header {
-            margin-top: 70px;
-            background: linear-gradient(90deg, #0a192f, #112240, #1d4ed8);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* MENU MOBILE */
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            right: 20px;
-            top: 15px;
-            font-size: 28px;
-            cursor: pointer;
-            z-index: 1100;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                align-items: center;
-                display: none;
-            }
-
-            nav.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-        }
-
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            perspective: 800px;
-        }
-
-        .hero h1 {
-            transition: transform 0.2s ease;
-            will-change: transform;
-        }
-
-        /* ANIMATION SCROLL */
-.reveal {
-    opacity: 0;
-    transform: translateY(60px) scale(0.9);
-    filter: blur(10px);
-    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    background:#020c1b;
+    color:#e6f1ff;
 }
 
-/* ANIMATIONS INTERNES PRODUIT */
-.product img {
-    transform: scale(0.8);
-    transition: transform 0.8s ease;
+/* NAV */
+nav {
+    position:fixed;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    background:rgba(2,12,27,0.8);
+    padding:15px;
 }
 
-.product h3 {
-    transform: translateY(20px);
-    opacity: 0;
-    transition: all 0.6s ease;
+nav a {
+    color:#64ffda;
+    text-decoration:none;
 }
 
-.product p {
-    opacity: 0;
-    transition: opacity 0.6s ease;
+/* SECTION */
+.section {
+    padding:120px 20px;
+    text-align:center;
 }
 
-.product.active img {
-    transform: scale(1);
-}
-
-.product.active h3 {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.product.active p {
-    opacity: 1;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-}
-
-/* DÉLAI CASCADE PRODUITS */
-.products .product:nth-child(1) { transition-delay: 0.1s; }
-.products .product:nth-child(2) { transition-delay: 0.3s; }
-.products .product:nth-child(3) { transition-delay: 0.5s; }
-.products .product:nth-child(4) { transition-delay: 0.7s; }
-
+/* PRODUITS */
 .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 40px;
-        }
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
 
-        .product {
-            position: relative;
-            background: rgba(17,34,64,0.85);
-            backdrop-filter: blur(6px);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.2s ease, box-shadow 0.3s;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
+/* CARTE */
+.product {
+    background:rgba(17,34,64,0.85);
+    padding:20px;
+    border-radius:15px;
+    width:250px;
+    transition:0.4s;
+}
 
-        /* BORDURE ANIMÉE */
-        .product::before {
-            content: "";
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            background: linear-gradient(45deg, #00c6ff, #1d4ed8, #00c6ff);
-            background-size: 300% 300%;
-            border-radius: 15px;
-            z-index: -2;
-            animation: borderAnim 6s linear infinite;
-        }
+/* HOVER CINÉMA */
+.product:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(0,198,255,0.3);
+}
 
-        /* LUMIÈRE INTERACTIVE SUR CARTE */
-        .product::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,198,255,0.25), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
-        }
+/* IMAGE */
+.product img {
+    width:100%;
+    border-radius:10px;
+    transition:0.6s;
+}
 
-        .product:hover::after {
-            opacity: 1;
-        }
+.product:hover img {
+    transform: scale(1.1) skewX(2deg);
+    filter: brightness(1.2);
+}
 
-        @keyframes borderAnim {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+/* TEXTE ANIMÉ */
+.reveal-text span {
+    opacity:0;
+    display:inline-block;
+}
 
-        .product:hover {
-            box-shadow: 0 15px 35px rgba(0,198,255,0.4);
-        }
+/* BOUTON */
+button {
+    background:linear-gradient(90deg,#1d4ed8,#00c6ff);
+    border:none;
+    padding:10px;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* EFFET TEXTE LUMINEUX */
-        h1 {
-            text-shadow: 0 0 10px rgba(0,198,255,0.8),
-                         0 0 20px rgba(0,198,255,0.6),
-                         0 0 40px rgba(29,78,216,0.5);
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px rgba(0,198,255,0.6),
-                             0 0 20px rgba(0,198,255,0.4);
-            }
-            to {
-                text-shadow: 0 0 20px rgba(0,198,255,1),
-                             0 0 40px rgba(29,78,216,0.8);
-            }
-        }
-    </style>
+button:hover {
+    box-shadow:0 0 15px rgba(0,198,255,0.6);
+}
+</style>
 </head>
+
 <body>
 
-<div class="cursor-light" id="cursorLight"></div>
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-<nav id="nav">
-    <a href="index.html">Accueil</a>
-    <a href="index.html#produits">Produits</a>
+<nav>
+    <a href="#">Accueil</a>
+    <a href="#produits">Produits</a>
     <a href="about.html">À propos</a>
     <a href="contact.html">Contact</a>
 </nav>
 
-<header>
-    <h1>Zyvoren</h1>
-    <p>Lunettes de piscine haute performance</p>
-</header>
+<div class="section">
+    <h1 class="reveal-text">Bienvenue chez Zyvoren</h1>
+</div>
 
-<section class="hero reveal">
-    <h1>Voyez sous l'eau comme jamais auparavant</h1>
-    <p style="opacity:0.8; margin-top:10px;">Une vision claire, un confort ultime, une performance FlowSen.</p>
-</section>
+<div id="produits" class="section">
+    <h2 class="reveal-text">Nos lunettes premium</h2>
 
-<section id="produits" class="products reveal" style="height:200vh; position:relative;">
-    <div id="story" style="position:sticky; top:100px; height:400px; display:flex; justify-content:center; align-items:center;">
-        <div class="product" style="position:absolute; width:300px; opacity:0; transform:scale(0.8); transition:all 0.6s ease;">
-            <img src="https://via.placeholder.com/250" style="width:100%; border-radius:10px; margin-bottom:10px;">
-            <h3>Zyvoren Pro</h3>
-            <p>Anti-buée • Ultra confort</p>
-            <p><strong>29,99€</strong></p>
+    <div class="products">
+
+        <div class="product">
+            <img src="https://via.placeholder.com/250" alt="">
+            <h3>Lunettes Pro</h3>
+            <p>Design hydrodynamique</p>
+            <button>Acheter</button>
         </div>
 
-        <div class="product" style="position:absolute; width:300px; opacity:0; transform:scale(0.8); transition:all 0.6s ease;">
-            <img src="https://via.placeholder.com/250" style="width:100%; border-radius:10px; margin-bottom:10px;">
-            <h3>Zyvoren Elite</h3>
-            <p>Vision HD • Design premium</p>
-            <p><strong>39,99€</strong></p>
+        <div class="product">
+            <img src="https://via.placeholder.com/250" alt="">
+            <h3>Lunettes Elite</h3>
+            <p>Vision ultra claire</p>
+            <button>Acheter</button>
         </div>
+
+        <div class="product">
+            <img src="https://via.placeholder.com/250" alt="">
+            <h3>Lunettes X</h3>
+            <p>Performance maximale</p>
+            <button>Acheter</button>
+        </div>
+
     </div>
-</section>
-
-<footer class="reveal">
-    <p>&copy; 2026 Zyvoren</p>
-</footer>
+</div>
 
 <script>
-function toggleMenu() {
-    document.getElementById('nav').classList.toggle('active');
-}
+// 🎬 TEXTE LETTRE PAR LETTRE
+const texts = document.querySelectorAll('.reveal-text');
 
-// lumière globale curseur
-const light = document.getElementById('cursorLight');
-let ticking = false;
+texts.forEach(el => {
+    const content = el.innerText;
+    el.innerHTML = "";
 
-document.addEventListener('mousemove', (e) => {
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-    light.style.left = e.clientX + 'px';
-    light.style.top = e.clientY + 'px';
+    content.split("").forEach((letter, i)=>{
+        const span = document.createElement("span");
+        span.innerText = letter;
+        el.appendChild(span);
 
-    // PARALLAX TEXTE HERO
-    const heroText = document.querySelector('.hero h1');
-    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-    heroText.style.transform = 'translateZ(50px) rotateX(' + (-y) + 'deg) rotateY(' + x + 'deg)';
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
-// lumière interactive sur cartes
-const cards = document.querySelectorAll('.product');
-cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-
-        const rotateX = (y - 0.5) * -20; // inclinaison verticale
-        const rotateY = (x - 0.5) * 20;  // inclinaison horizontale
-
-        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale(1.05)';
-
-        // lumière interne
-        const percentX = x * 100;
-        const percentY = y * 100;
-        card.style.setProperty('--x', percentX + '%');
-        card.style.setProperty('--y', percentY + '%');
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-    });
-
-});
-
-
-
-// ANIMATION AU SCROLL
-const reveals = document.querySelectorAll('.reveal');
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-
-            // STAGGER PRODUITS ULTRA PRÉCIS
-            if (entry.target.classList.contains('products')) {
-                const items = entry.target.querySelectorAll('.product');
-                items.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('active');
-                    }, index * 200);
-                });
-            }
-        }
+        setTimeout(()=>{
+            span.style.opacity = 1;
+        }, i * 30);
     });
 });
 
-reveals.forEach(el => observer.observe(el));
-
-
-
-// SCROLL STORYTELLING (EFFET VIDÉO)
-const story = document.getElementById('story');
-const storyCards = story.querySelectorAll('.product');
-
-let scrollTicking = false;
-
-window.addEventListener('scroll', () => {
-    if (!scrollTicking) {
-        window.requestAnimationFrame(() => {
-    const rect = story.parentElement.getBoundingClientRect();
-    const progress = Math.min(Math.max(1 - rect.top / window.innerHeight, 0), 1);
-
-    // FOND DYNAMIQUE
-    if(progress < 0.5){
-        document.body.style.background = '#020c1b';
-    } else {
-        document.body.style.background = '#0a192f';
-    }
-
-    storyCards.forEach((card, index) => {
-        const start = index * 0.5;
-        const end = start + 0.5;
-
-        if (progress >= start && progress < end) {
-            const local = (progress - start) / 0.5;
-
-            // FADE + ROTATION CINÉMATIQUE
-            card.style.opacity = local;
-            card.style.transform = 'scale(' + (0.8 + local * 0.2) + ') rotateY(' + ((1-local)*30) + 'deg) translateY(' + ((1-local)*60) + 'px)';
-
-            // TEXTE MOT PAR MOT
-            const title = card.querySelector('h3');
-            if(title && !title.dataset.split){
-                const words = title.innerText.split(' ');
-                title.innerHTML = words.map(function(w){ return '<span style="opacity:0; display:inline-block; margin-right:5px;">' + w + '</span>'; }).join('');
-                title.dataset.split = true;
-            }
-
-            const spans = card.querySelectorAll('h3 span');
-            spans.forEach((span, i) => {
-                setTimeout(() => {
-                    span.style.opacity = local;
-                    span.style.transform = 'translateY(0)';
-                }, i * 50);
-            });
-
-        } else if (progress >= end) {
-            card.style.opacity = 1;
-            card.style.transform = 'scale(1) rotateY(0deg) translateY(0)';
-        } else {
-            card.style.opacity = 0;
-        }
-    });
-        scrollTicking = false;
-        });
-        scrollTicking = true;
-    }
-});
-
-</script>
-
-
-<!-- FORMULAIRE CINÉMATIQUE -->
-<section class="container reveal" style="max-width:600px;margin:80px auto;">
-    <div class="product" style="padding:30px;">
-        <h2 id="contactTitle">Contactez-moi</h2>
-        <form id="contactForm">
-            <input type="text" placeholder="Nom" />
-            <input type="email" placeholder="Email" />
-            <textarea placeholder="Message"></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
-    </div>
-</section>
-
-<script>
-// EFFET MACHINE À ÉCRIRE
-const contactTitle = document.getElementById('contactTitle');
-if(contactTitle){
-    const text = contactTitle.innerText;
-    contactTitle.innerText = '';
-    let index = 0;
-
-    function typeWriter(){
-        if(index < text.length){
-            contactTitle.innerText += text.charAt(index);
-            index++;
-            setTimeout(typeWriter, 80);
-        }
-    }
-
-    setTimeout(typeWriter, 300);
-}
-
-</script>
-<script>
+// 🌊 SCROLL FLUIDE
 let current = 0;
 let target = 0;
 
@@ -533,20 +167,9 @@ function smoothScroll(){
     window.scrollTo(0, current);
     requestAnimationFrame(smoothScroll);
 }
-    .product img {
-    transition: 0.6s;
-    filter: brightness(0.9);
-}
-
-.product:hover img {
-    transform: scale(1.1) skewX(2deg);
-    filter: brightness(1.2) contrast(1.1);
-
 
 smoothScroll();
 </script>
+
 </body>
 </html>
-
-
-
