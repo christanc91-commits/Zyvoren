@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zyvoren - Contact</title>
 
+<style>
+body {
+    margin:0;
+    font-family:Arial;
+    color:#e6f1ff;
+    background:#020c1b;
+}
+
+/* NAV */
+nav {
+    position:fixed;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    background:rgba(2,12,27,0.85);
+    padding:15px;
+}
+
+nav a {
+    color:#64ffda;
+    text-decoration:none;
+}
+
+/* CONTAINER */
+.container {
+    padding:120px 20px;
+    max-width:600px;
+    margin:auto;
+}
+
+/* CARD */
+.card {
+    background:rgba(17,34,64,0.85);
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 10px 30px rgba(0,198,255,0.2);
+}
+
+/* FORM */
+input, textarea {
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+}
+
+/* BUTTON */
+button {
+    background:linear-gradient(90deg,#1d4ed8,#00c6ff);
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* ANIMATION */
+.reveal {
+    opacity:0;
+    transform:translateY(40px);
+    transition:0.8s;
+}
+
+.reveal.active {
+    opacity:1;
+    transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html">Accueil</a>
+    <a href="index.html#produits">Produits</a>
+    <a href="about.html">À propos</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="container">
+
+<div class="card reveal">
+    <h1 id="title">Contactez-moi</h1>
+
+    <form>
+        <input type="text" placeholder="Nom" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Message"></textarea>
+        <button>Envoyer</button>
+    </form>
+</div>
+
+</div>
+
+<script>
+// TYPEWRITER
+const title = document.getElementById("title");
+const text = title.innerText;
+title.innerText = "";
+let i = 0;
+
+function type(){
+    if(i < text.length){
+        title.innerText += text.charAt(i);
+        i++;
+        setTimeout(type, 70);
+    }
+}
+type();
+
+// SCROLL
+const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("active");
+    });
+});
+obs.observe(document.querySelector(".reveal"));
+</script>
+
+</body>
+</html>
