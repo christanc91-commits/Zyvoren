@@ -35,6 +35,7 @@ nav a {
     padding:120px 20px;
     max-width:800px;
     margin:auto;
+    text-align:center;
 }
 
 /* CARD */
@@ -43,6 +44,12 @@ nav a {
     padding:30px;
     border-radius:15px;
     box-shadow:0 10px 30px rgba(0,198,255,0.2);
+}
+
+/* TEXTE ANIMÉ FIX */
+.reveal-text span {
+    display:inline-block;
+    white-space:pre;
 }
 
 /* ANIMATION */
@@ -71,7 +78,7 @@ nav a {
 <div class="section">
 
 <div class="card reveal">
-    <h1 id="title">À propos de Zyvoren</h1>
+    <h1 class="reveal-text">À propos de Zyvoren</h1>
 
     <p>
     Zyvoren est une marque spécialisée dans les lunettes de piscine premium,
@@ -87,20 +94,24 @@ nav a {
 </div>
 
 <script>
-// TYPEWRITER
-const title = document.getElementById("title");
-const text = title.innerText;
-title.innerText = "";
-let i = 0;
+// TEXTE LETTRE PAR LETTRE (FIX ESPACES)
+const texts = document.querySelectorAll('.reveal-text');
 
-function type(){
-    if(i < text.length){
-        title.innerText += text.charAt(i);
-        i++;
-        setTimeout(type, 70);
-    }
-}
-type();
+texts.forEach(el => {
+    const content = el.innerText;
+    el.innerHTML = "";
+
+    content.split("").forEach((letter, i)=>{
+        const span = document.createElement("span");
+        span.innerHTML = letter === " " ? "&nbsp;" : letter;
+        span.style.opacity = 0;
+        el.appendChild(span);
+
+        setTimeout(()=>{
+            span.style.opacity = 1;
+        }, i * 30);
+    });
+});
 
 // SCROLL
 const obs = new IntersectionObserver(entries=>{
