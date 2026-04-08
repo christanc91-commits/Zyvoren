@@ -1,69 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zyvoren - À propos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Zyvoren</title>
 
-<style>
-body {
-    margin:0;
-    font-family:Arial;
-    color:#e6f1ff;
-    background:linear-gradient(120deg,#020c1b,#0a192f,#112240);
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            color: #e6f1ff;
+            background: #020c1b;
+        }
 
-/* NAV */
-nav {
-    position:fixed;
-    top:0;
-    width:100%;
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    background:rgba(2,12,27,0.85);
-    padding:15px;
-}
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(2,12,27,0.9);
+            padding: 15px;
+        }
 
-nav a {
-    color:#64ffda;
-    text-decoration:none;
-}
+        nav a {
+            color: #64ffda;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-/* SECTION */
-.section {
-    padding:120px 20px;
-    max-width:800px;
-    margin:auto;
-    text-align:center;
-}
+        /* ✅ CORRECTION ICI */
+        .container {
+            margin-top: 120px; /* espace sous navbar */
+            padding: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
 
-/* CARD */
-.card {
-    background:rgba(17,34,64,0.85);
-    padding:30px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,198,255,0.2);
-}
+        h1 {
+            margin-bottom: 20px;
+        }
 
-/* TEXTE ANIMÉ FIX */
-.reveal-text span {
-    display:inline-block;
-    white-space:pre;
-}
-
-/* ANIMATION */
-.reveal {
-    opacity:0;
-    transform:translateY(40px);
-    transition:0.8s;
-}
-
-.reveal.active {
-    opacity:1;
-    transform:translateY(0);
-}
-</style>
+        p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,52 +60,20 @@ nav a {
     <a href="contact.html">Contact</a>
 </nav>
 
-<div class="section">
-
-<div class="card reveal">
-    <h1 class="reveal-text">À propos de Zyvoren</h1>
+<div class="container">
+    <h1>À propos</h1>
 
     <p>
-    Zyvoren est une marque spécialisée dans les lunettes de piscine premium,
-    alliant design moderne, confort et performance.
+        Zyvoren est une marque spécialisée dans les lunettes de natation
+        haute performance. Nous combinons design moderne, confort et
+        technologie pour offrir une expérience unique sous l’eau.
     </p>
 
     <p>
-    Notre mission est d’offrir une expérience unique dans l’eau,
-    avec des produits élégants et innovants.
+        Notre mission est simple : améliorer votre vision et votre
+        performance, que vous soyez nageur amateur ou professionnel.
     </p>
 </div>
-
-</div>
-
-<script>
-// TEXTE LETTRE PAR LETTRE (FIX ESPACES)
-const texts = document.querySelectorAll('.reveal-text');
-
-texts.forEach(el => {
-    const content = el.innerText;
-    el.innerHTML = "";
-
-    content.split("").forEach((letter, i)=>{
-        const span = document.createElement("span");
-        span.innerHTML = letter === " " ? "&nbsp;" : letter;
-        span.style.opacity = 0;
-        el.appendChild(span);
-
-        setTimeout(()=>{
-            span.style.opacity = 1;
-        }, i * 30);
-    });
-});
-
-// SCROLL
-const obs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add("active");
-    });
-});
-obs.observe(document.querySelector(".reveal"));
-</script>
 
 </body>
 </html>
