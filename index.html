@@ -13,108 +13,75 @@
             background: #020c1b;
         }
 
-        /* FOND EAU ANIMÉ */
-        body::before {
-            content: "";
+        nav {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 30%, rgba(0,198,255,0.2), transparent 60%),
-                        radial-gradient(circle at 70% 60%, rgba(29,78,216,0.25), transparent 60%),
-                        linear-gradient(120deg, #020c1b, #0a192f, #112240);
-            animation: waterMove 30s linear infinite, waterPulse 8s ease-in-out infinite alternate;
-            filter: saturate(1.2);
-            will-change: transform, filter;
-            z-index: -3;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(2,12,27,0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            z-index: 1000;
         }
 
-        @keyframes waterPulse { from { transform: scale(1); } to { transform: scale(1.05); } }
-
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0;
-            width: 200%; height: 200%;
-            background: repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 2px, transparent 4px, transparent 40px);
-            animation: causticsMove 20s linear infinite;
-            opacity: 0.4;
-            z-index: -2;
-            mix-blend-mode: overlay;
-            will-change: transform;
+        nav a {
+            color: #64ffda;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        .cursor-light { position: fixed; width: 300px; height: 300px; pointer-events: none; border-radius: 50%; background: radial-gradient(circle, rgba(0,198,255,0.25) 0%, transparent 70%); transform: translate(-50%, -50%); z-index: -1; }
-
-        @keyframes waterMove { 0%{transform:translate(0,0);}50%{transform:translate(-5%,-5%);}100%{transform:translate(0,0);} }
-        @keyframes causticsMove { 0%{transform:translate(0,0) scale(1);}50%{transform:translate(-10%,-10%) scale(1.2);}100%{transform:translate(0,0) scale(1);} }
-
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: center; gap: 20px; background: rgba(2,12,27,0.85); backdrop-filter: blur(10px); padding: 15px; z-index: 1000; }
-        nav a { color: #64ffda; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; }
-        nav a::after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0%; height: 2px; background: #00c6ff; transition: 0.3s; }
-        nav a:hover { color: #ffffff; }
-        nav a:hover::after { width: 100%; }
-
-        header { margin-top: 70px; background: linear-gradient(90deg, #0a192f, #112240, #1d4ed8); color: white; padding: 20px; text-align: center; }
-
-        .menu-toggle { display: none; position: fixed; right: 20px; top: 15px; font-size: 28px; cursor: pointer; z-index: 1100; }
-        @media (max-width: 768px) {
-            nav { flex-direction: column; align-items: center; display: none; }
-            nav.active { display: flex; }
-            .menu-toggle { display: block; }
+        header {
+            margin-top: 70px;
+            background: linear-gradient(90deg, #0a192f, #112240, #1d4ed8);
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
-        .hero { text-align: center; padding: 80px 20px; perspective: 800px; }
-        .hero h1 { transition: transform 0.2s ease; will-change: transform; }
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+        }
 
-        .reveal { opacity: 0; transform: translateY(60px) scale(0.9); filter: blur(10px); transition: all 1s cubic-bezier(0.22, 1, 0.36, 1); }
-        .product img { transform: scale(0.8); transition: transform 0.8s ease; }
-        .product h3 { transform: translateY(20px); opacity: 0; transition: all 0.6s ease; }
-        .product p { opacity: 0; transition: opacity 0.6s ease; }
-        .product.active img { transform: scale(1); }
-        .product.active h3 { transform: translateY(0); opacity: 1; }
-        .product.active p { opacity: 1; }
-        .reveal.active { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
 
-        .products .product:nth-child(1){transition-delay:.1s}
-        .products .product:nth-child(2){transition-delay:.3s}
-        .products .product:nth-child(3){transition-delay:.5s}
-        .products .product:nth-child(4){transition-delay:.7s}
+        .product {
+            background: rgba(17,34,64,0.85);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
 
-        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 40px; }
-
-        .product { position: relative; background: rgba(17,34,64,0.85); backdrop-filter: blur(6px); border-radius: 15px; padding: 20px; text-align: center; transition: transform 0.2s ease, box-shadow 0.3s; overflow: hidden; transform-style: preserve-3d; will-change: transform; }
-        .product::before { content: ""; position: absolute; top: -2px; left: -2px; width: calc(100% + 4px); height: calc(100% + 4px); background: linear-gradient(45deg, #00c6ff, #1d4ed8, #00c6ff); background-size: 300% 300%; border-radius: 15px; z-index: -2; animation: borderAnim 6s linear infinite; }
-        .product::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,198,255,0.25), transparent 60%); opacity: 0; transition: opacity 0.3s; z-index: 1; }
-        .product:hover::after { opacity: 1; }
-        @keyframes borderAnim { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-        .product:hover { box-shadow: 0 15px 35px rgba(0,198,255,0.4); }
-
-        footer { text-align: center; padding: 20px; }
-
-        h1 { text-shadow: 0 0 10px rgba(0,198,255,0.8), 0 0 20px rgba(0,198,255,0.6), 0 0 40px rgba(29,78,216,0.5); animation: glow 3s ease-in-out infinite alternate; }
-        @keyframes glow { from { text-shadow: 0 0 10px rgba(0,198,255,0.6), 0 0 20px rgba(0,198,255,0.4);} to { text-shadow: 0 0 20px rgba(0,198,255,1), 0 0 40px rgba(29,78,216,0.8);} }
-
-        /* BOUTON ACHAT */
         .buy-btn {
             background: linear-gradient(90deg,#1d4ed8,#00c6ff);
-            border: none; padding: 12px 20px; color: white; border-radius: 10px; cursor: pointer; margin-top: 10px; transition: 0.3s; box-shadow: 0 0 15px rgba(0,198,255,0.5);
+            border: none;
+            padding: 12px 20px;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        .buy-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(0,198,255,0.8); }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
 
-<div class="cursor-light" id="cursorLight"></div>
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-<nav id="nav">
+<nav>
     <a href="index.html">Accueil</a>
-    <a href="index.html#produits">Produits</a>
+    <a href="#produits">Produits</a>
     <a href="about.html">À propos</a>
     <a href="contact.html">Contact</a>
-    <a href="avis.html">Avis</a>
 </nav>
 
 <header>
@@ -122,88 +89,35 @@
     <p>Lunettes de piscine haute performance</p>
 </header>
 
-<section class="hero reveal">
+<section class="hero">
     <h1>Voyez sous l'eau comme jamais auparavant</h1>
-    <p style="opacity:0.8; margin-top:10px;">Une vision claire, un confort ultime, une performance FlowSen.</p>
-</section>
-
-<section id="produits" class="products reveal" style="height:200vh; position:relative;">
-    <div id="story" style="position:sticky; top:100px; height:400px; display:flex; justify-content:center; align-items:center;">
-        <div class="product" style="position:absolute; width:300px; opacity:0; transform:scale(0.8); transition:all 0.6s ease;">
-            <img src="https://via.placeholder.com/250" style="width:100%; border-radius:10px; margin-bottom:10px;">
-            <h3>Zyvoren Pro</h3>
-            <p>Anti-buée • Ultra confort</p>
-            <p><strong>29,99€</strong></p>
-            <a href="https://buy.stripe.com/bJedR30xP21f5wn0y4d7q00" target="_blank"><button class="buy-btn">🛒 Acheter</button></a>
-        </div>
-
-        <div class="product" style="position:absolute; width:300px; opacity:0; transform:scale(0.8); transition:all 0.6s ease;">
-            <img src="https://via.placeholder.com/250" style="width:100%; border-radius:10px; margin-bottom:10px;">
-            <h3>Zyvoren Elite</h3>
-            <p>Vision HD • Design premium</p>
-            <p><strong>39,99€</strong></p>
-            <a href="https://buy.stripe.com/bJedR30xP21f5wn0y4d7q00" target="_blank"><button class="buy-btn">🛒 Acheter</button></a>
-        </div>
+    <div class="product">
+        <h3>Zyvoren Elite</h3>
+        <p>24,99€</p>
+        <a href="https://buy.stripe.com/bJebIVeoFdJXf6X3Kgd7q04" target="_blank">
+            <button class="buy-btn">🛒 Acheter</button>
+        </a>
     </div>
+
 </section>
 
-<footer class="reveal">
+<section id="produits" class="products">
+
+    <div class="product">
+        <h3>Zyvoren Pro</h3>
+        <p>14,99€</p>
+        <a href="https://buy.stripe.com/6oU7sF0xPfS54sj5Sod7q03" target="_blank">
+            <button class="buy-btn">🛒 Acheter</button>
+        </a>
+    </div>
+
+    
+
+</section>
+
+<footer>
     <p>&copy; 2026 Zyvoren</p>
 </footer>
-
-<section class="section reveal" style="text-align:center; padding:80px 20px;">
-    <h2>Pourquoi choisir Zyvoren ?</h2>
-    <p style="opacity:0.8; max-width:600px; margin:auto;">Vision parfaite, confort extrême et design premium. Rejoignez des milliers de nageurs satisfaits.</p>
-</section>
-
-<section class="section reveal" style="text-align:center; padding:80px 20px;">
-    <h2>Offre limitée 🔥</h2>
-    <p id="countdown">Chargement...</p>
-    <a href="https://buy.stripe.com/bJedR30xP21f5wn0y4d7q00" target="_blank"><button class="buy-btn">💰 Acheter maintenant</button></a>
-    <p style="font-size:14px; opacity:0.7; margin-top:10px;">🔒 Paiement sécurisé • Livraison rapide • Garantie 30 jours</p>
-</section>
-
-<section class="section reveal" style="text-align:center; padding:80px 20px;">
-    <h2>Avis clients ⭐</h2>
-    <p>★★★★★ "Incroyable qualité"</p>
-    <p>★★★★★ "Ultra confortable"</p>
-</section>
-
-<section class="section reveal" style="text-align:center; padding:80px 20px;">
-    <h2>Garantie 30 jours</h2>
-    <p>Satisfait ou remboursé sans condition.</p>
-</section>
-
-<section class="section reveal" style="text-align:center; padding:80px 20px;">
-    <h2>Prêt à améliorer votre expérience ?</h2>
-    <a href="https://buy.stripe.com/bJedR30xP21f5wn0y4d7q00" target="_blank"><button class="buy-btn">🚀 Commander maintenant</button></a>
-</section>
-
-<div id="popup" style="position:fixed;bottom:20px;left:20px;background:#112240;padding:15px;border-radius:10px;display:none;box-shadow:0 0 15px rgba(0,198,255,0.5);z-index:999;"></div>
-
-<script>
-function toggleMenu(){ document.getElementById('nav').classList.toggle('active'); }
-
-const light = document.getElementById('cursorLight');
-let ticking = false;
-document.addEventListener('mousemove',(e)=>{ if(!ticking){ window.requestAnimationFrame(()=>{ light.style.left=e.clientX+'px'; light.style.top=e.clientY+'px'; const heroText=document.querySelector('.hero h1'); const x=(e.clientX/window.innerWidth-0.5)*20; const y=(e.clientY/window.innerHeight-0.5)*20; heroText.style.transform='translateZ(50px) rotateX('+(-y)+'deg) rotateY('+x+'deg)'; ticking=false; }); ticking=true; }});
-
-const cards=document.querySelectorAll('.product');
-cards.forEach(card=>{ card.addEventListener('mousemove',(e)=>{ const rect=card.getBoundingClientRect(); const x=(e.clientX-rect.left)/rect.width; const y=(e.clientY-rect.top)/rect.height; const rotateX=(y-0.5)*-20; const rotateY=(x-0.5)*20; card.style.transform='perspective(800px) rotateX('+rotateX+'deg) rotateY('+rotateY+'deg) scale(1.05)'; card.style.setProperty('--x',x*100+'%'); card.style.setProperty('--y',y*100+'%'); }); card.addEventListener('mouseleave',()=>{ card.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)'; }); });
-
-const reveals=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('active'); if(entry.target.classList.contains('products')){ const items=entry.target.querySelectorAll('.product'); items.forEach((item,index)=>{ setTimeout(()=>{ item.classList.add('active'); },index*200); }); } } }); });
-reveals.forEach(el=>observer.observe(el));
-
-// TIMER
-let time=600; function updateTimer(){ let min=Math.floor(time/60); let sec=time%60; document.getElementById('countdown').innerText=min+'m '+sec+'s restantes'; if(time>0){ time--; setTimeout(updateTimer,1000);} }
-updateTimer();
-
-// POPUP
-const names=['Lucas','Emma','Hugo','Léa','Noah'];
-function showPopup(){ const popup=document.getElementById('popup'); const name=names[Math.floor(Math.random()*names.length)]; popup.innerText=name+' vient d’acheter 🛒'; popup.style.display='block'; setTimeout(()=>{ popup.style.display='none'; },3000); }
-setInterval(showPopup,7000);
-</script>
 
 </body>
 </html>
