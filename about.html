@@ -8,7 +8,7 @@
 <style>
 body {
     margin: 0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     color: #e6f1ff;
     background: linear-gradient(120deg,#020c1b,#0a192f,#112240);
 }
@@ -21,7 +21,8 @@ nav {
     display: flex;
     justify-content: center;
     gap: 20px;
-    background: rgba(2,12,27,0.9);
+    background: rgba(2,12,27,0.85);
+    backdrop-filter: blur(10px);
     padding: 15px;
 }
 
@@ -31,41 +32,35 @@ nav a {
     font-weight: bold;
 }
 
-/* CONTAINER */
+/* CONTAINER UNIQUE */
 .container {
     margin-top: 120px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.box {
+    max-width: 700px;
+    background: rgba(17,34,64,0.85);
     padding: 40px;
-    text-align: center;
-}
-
-/* TITRE */
-h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-}
-
-/* BLOCS */
-.card {
-    background: rgba(17,34,64,0.8);
-    padding: 30px;
-    margin: 20px 0;
     border-radius: 15px;
+    text-align: center;
     transition: 0.3s;
 }
 
-.card:hover {
+.box:hover {
     transform: scale(1.03);
 }
 
-/* AVIS */
-.avis {
-    background: rgba(0,198,255,0.1);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
+/* TEXTE */
+h1 {
+    margin-bottom: 20px;
+}
+
+p {
+    opacity: 0.8;
+    line-height: 1.6;
 }
 </style>
 </head>
@@ -76,48 +71,42 @@ h1 {
 <a href="index.html">Accueil</a>
 <a href="about.html">À propos</a>
 <a href="contact.html">Contact</a>
-<a href="avis.html">Avis</a>
 </nav>
 
 <div class="container">
+    <div class="box">
+        <h1 id="aboutTitle"></h1>
 
-<h1>À propos de Zyvoren</h1>
+        <p>
+            Zyvoren est une marque spécialisée dans les lunettes de natation haute performance.
+            Notre mission est de vous offrir une vision parfaite sous l’eau,
+            avec un confort ultime et un design premium.
+        </p>
 
-<div class="card">
-<p>
-Zyvoren est une marque spécialisée dans les lunettes de natation haute performance.
-Notre objectif est de vous offrir une vision parfaite sous l’eau.
-</p>
+        <p>
+            Que vous soyez nageur occasionnel ou professionnel,
+            Zyvoren transforme votre expérience aquatique.
+        </p>
+    </div>
 </div>
 
-<div class="card">
-<p>
-Nous combinons design moderne, confort et technologie pour améliorer chaque session de natation.
-</p>
-</div>
+<script>
+// ✨ ANIMATION LETTRE PAR LETTRE
+const text = "À propos de Zyvoren";
+const el = document.getElementById("aboutTitle");
 
-<div class="card">
-<p>
-Que vous soyez débutant ou professionnel, Zyvoren vous accompagne.
-</p>
-</div>
+let i = 0;
 
-<!-- ⭐ AVIS DIRECT -->
-<h1>Avis clients</h1>
+function typeEffect() {
+    if (i < text.length) {
+        el.innerHTML += text.charAt(i) === " " ? "&nbsp;" : text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 60);
+    }
+}
 
-<div class="avis">
-<p>★★★★★ “Incroyable qualité”</p>
-</div>
-
-<div class="avis">
-<p>★★★★★ “Ultra confortable”</p>
-</div>
-
-<div class="avis">
-<p>★★★★★ “Je recommande à 100%”</p>
-</div>
-
-</div>
+typeEffect();
+</script>
 
 </body>
 </html>
