@@ -104,12 +104,22 @@ h1 {
 
         <h1 id="contactTitle"></h1>
 
-        <form style="display:flex;flex-direction:column;gap:15px;margin-top:20px;">
-            <input type="text" placeholder="Nom">
-            <input type="email" placeholder="Email">
-            <textarea placeholder="Message"></textarea>
-            <button type="submit">Envoyer</button>
-        </form>
+        <form action="https://formspree.io/f/meepbvyo" method="POST">
+    
+    <!-- redirection après envoi -->
+    <input type="hidden" name="_next" value="merci.html">
+    
+    <!-- désactive captcha Formspree -->
+    <input type="hidden" name="_captcha" value="false">
+
+    <div style="display:flex;flex-direction:column;gap:15px;margin-top:20px;">
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+    </div>
+
+    <button type="submit">Envoyer</button>
+</form>
 
     </div>
 </div>
