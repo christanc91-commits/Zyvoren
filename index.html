@@ -164,25 +164,41 @@ button {
     border-radius: 8px;
 }
 
-/* ANIM */
+/* ANIM — Apple keynote ultra smooth */
 .logo-animated {
     width:160px;
     margin-bottom:10px;
-    animation: floatLogo 4s ease-in-out infinite, glowLogo 3s ease-in-out infinite alternate;
+    will-change: transform, opacity, filter;
+    animation: logoIntro 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+               floatLogo 6s ease-in-out infinite 1.2s,
+               glowLogo 4s ease-in-out infinite alternate 1.2s;
+}
+
+@keyframes logoIntro {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 @keyframes floatLogo {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    50% { transform: translateY(-6px); }
     100% { transform: translateY(0px); }
 }
 
 @keyframes glowLogo {
     from {
-        filter: drop-shadow(0 0 5px rgba(0,198,255,0.4));
+        filter: brightness(1.2) drop-shadow(0 0 8px rgba(0,198,255,0.5));
     }
     to {
-        filter: drop-shadow(0 0 20px rgba(0,198,255,0.9));
+        filter: brightness(1.4) drop-shadow(0 0 18px rgba(0,198,255,0.9));
     }
 }
 
