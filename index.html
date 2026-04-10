@@ -2,218 +2,66 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zyvoren - Premium Swim Vision</title>
+<title>Merci - Zyvoren</title>
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: white;
-    background: #000;
-}
-
-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
+    color: #e6f1ff;
     display: flex;
-    justify-content: space-between;
-    padding: 20px 40px;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    opacity: 0.6;
-}
-
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background: linear-gradient(120deg,#020c1b,#0a192f,#112240);
+}
+
+/* BOX */
+.box {
+    background: rgba(17,34,64,0.85);
+    padding: 40px;
+    border-radius: 15px;
     text-align: center;
-    background: radial-gradient(circle at center, #0a192f, #000);
+    max-width: 500px;
 }
 
-.hero h1 {
-    font-size: 56px;
-    max-width: 800px;
-    line-height: 1.1;
-    animation: fadeUp 1s ease forwards;
+/* TITRE */
+h1 {
+    margin-bottom: 15px;
 }
 
-.hero p {
-    margin-top: 20px;
-    opacity: 0.7;
-    animation: fadeUp 1s ease forwards;
-    animation-delay: 0.3s;
+/* TEXTE */
+p {
+    opacity: 0.8;
 }
 
-.cta button {
-    margin-top: 30px;
-    padding: 16px 28px;
-    font-size: 18px;
-    border-radius: 50px;
-    border: none;
-    background: white;
-    color: black;
-    cursor: pointer;
+/* BOUTON */
+a {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 20px;
+    background: linear-gradient(45deg,#00c6ff,#1d4ed8);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
     transition: 0.3s;
 }
 
-.cta button:hover {
+a:hover {
     transform: scale(1.05);
 }
-
-.products {
-    padding: 100px 40px;
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.product {
-    background: #111;
-    padding: 30px;
-    border-radius: 20px;
-    width: 260px;
-    transition: 0.4s;
-}
-
-.product:hover {
-    transform: translateY(-10px);
-}
-
-.product h3 {
-    font-size: 22px;
-}
-
-.product button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: none;
-    background: white;
-    color: black;
-    cursor: pointer;
-}
-
-.section {
-    padding: 100px 20px;
-    text-align: center;
-}
-
-.split {
-    display: flex;
-    justify-content: center;
-    gap: 60px;
-    flex-wrap: wrap;
-}
-
-.split div {
-    max-width: 300px;
-}
-
-footer {
-    text-align: center;
-    padding: 40px;
-    opacity: 0.5;
-}
-
-@keyframes fadeUp {
-    from {opacity:0; transform: translateY(40px);} 
-    to {opacity:1; transform: translateY(0);} 
-}
-
 </style>
 </head>
 
 <body>
 
-<nav>
-<div><strong>Zyvoren</strong></div>
-<div>
-<a href="#">Accueil</a>
-<a href="#produits">Produits</a>
-<a href="#contact">Contact</a>
-</div>
-</nav>
+<div class="box">
+    <h1>Merci 🙌</h1>
+    <p>Votre message a bien été envoyé.</p>
+    <p>Nous vous répondrons rapidement.</p>
 
-<section class="hero">
-<h1>Swim Beyond Limits</h1>
-<p>Clarté. Confort. Performance ultime.</p>
-<div class="cta">
-<a href="#produits"><button>Explorer</button></a>
+    <a href="index.html">Retour à l'accueil</a>
 </div>
-</section>
-
-<section id="produits" class="products">
-
-<div class="product">
-<h3>Zyvoren Pro</h3>
-<p>Minimal. Efficace.</p>
-<p><strong>14,99€</strong></p>
-<a href="https://buy.stripe.com/6oU7sF0xPfS54sj5Sod7q03"><button>Acheter</button></a>
-</div>
-
-<div class="product">
-<h3>Zyvoren Elite</h3>
-<p>Design. Vision HD.</p>
-<p><strong>24,99€</strong></p>
-<a href="https://buy.stripe.com/14A9AN0xP7lz1g75Sod7q05"><button>Acheter</button></a>
-</div>
-
-</section>
-
-<section class="section">
-<h2>Pourquoi Zyvoren</h2>
-<div class="split">
-<div>
-<h3>Vision parfaite</h3>
-<p>Zéro buée. Clarté maximale.</p>
-</div>
-<div>
-<h3>Confort total</h3>
-<p>Port longue durée sans douleur.</p>
-</div>
-<div>
-<h3>Design premium</h3>
-<p>Inspiré des pros.</p>
-</div>
-</div>
-</section>
-
-<section id="contact" class="section">
-<h2>Contact</h2>
-<p>contact@zyvoren.com</p>
-</section>
-
-<footer>
-<p>© 2026 Zyvoren</p>
-</footer>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
