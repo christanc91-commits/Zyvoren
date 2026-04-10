@@ -169,15 +169,10 @@ button {
     width:160px;
     margin-bottom:10px;
     will-change: transform, opacity, filter;
+    filter: brightness(1.8);
     animation: logoIntro 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
-               floatLogo 6s ease-in-out infinite 1.2s,
-               glowLogo 4s ease-in-out infinite alternate 1.2s;
-}
-
-@keyframes logoIntro {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.9);
+               floatLogo 6s ease-in-out infinite 1.2s;
+}ansform: translateY(30px) scale(0.9);
         filter: blur(8px);
     }
     100% {
@@ -194,9 +189,9 @@ button {
 }
 
 @keyframes glowLogo {
-    from {
-        filter: brightness(1.2) drop-shadow(0 0 8px rgba(0,198,255,0.5));
-    }
+    from { filter: brightness(1.6); }
+    to { filter: brightness(1.8); }
+}
     to {
         filter: brightness(1.4) drop-shadow(0 0 18px rgba(0,198,255,0.9));
     }
