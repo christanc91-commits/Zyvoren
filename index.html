@@ -100,6 +100,9 @@ nav a:hover::after {
 
 /* HEADER */
 header {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
     margin-top: 70px;
     text-align: center;
     padding: 20px;
@@ -187,6 +190,10 @@ button {
 </nav>
 
 <header>
+<!-- 🎬 LOGO ANIMÉ -->
+<video autoplay muted loop playsinline style="width:120px;margin-bottom:10px;">
+    <source src="Zyvoren.mp4.mp4" type="video/mp4">
+</video>
 <h1>Zyvoren</h1>
 <p>Lunettes de piscine haute performance</p>
 </header>
@@ -232,6 +239,19 @@ button {
 <p>&copy; 2026 Zyvoren</p>
 </footer>
 
+<!-- 📩 PAGE CONTACT ANIMÉE -->
+<section id="contact" style="display:flex;justify-content:center;padding:80px 20px;">
+    <div class="contact-box" style="max-width:600px;width:100%;background:rgba(17,34,64,0.85);padding:40px;border-radius:15px;text-align:center;opacity:0;transform:translateY(40px);transition:all 0.8s ease;">
+        <h2 id="contactTitle"></h2>
+        <form style="display:flex;flex-direction:column;gap:15px;margin-top:20px;">
+            <input type="text" placeholder="Nom" style="padding:12px;border-radius:8px;border:none;">
+            <input type="email" placeholder="Email" style="padding:12px;border-radius:8px;border:none;">
+            <textarea placeholder="Message" style="padding:12px;border-radius:8px;border:none;"></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</section>
+
 <script>
 const products = document.querySelectorAll('.product');
 
@@ -261,6 +281,37 @@ function typeAbout(){
 }
 
 setTimeout(typeAbout, 300);
+</script>
+
+<script>
+// ✨ APPARITION CONTACT AU SCROLL
+const contactBox = document.querySelector('.contact-box');
+
+const contactObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            contactBox.style.opacity = 1;
+            contactBox.style.transform = 'translateY(0)';
+        }
+    });
+});
+
+if(contactBox) contactObserver.observe(contactBox);
+
+// ✨ TITRE LETTRE PAR LETTRE CONTACT
+const contactText = "Contactez-nous";
+const contactTitle = document.getElementById("contactTitle");
+
+let j = 0;
+function typeContact(){
+    if(j < contactText.length){
+        contactTitle.innerHTML += contactText.charAt(j) === " " ? "&nbsp;" : contactText.charAt(j);
+        j++;
+        setTimeout(typeContact, 60);
+    }
+}
+
+setTimeout(typeContact, 500);
 </script>
 
 </body>
