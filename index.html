@@ -166,13 +166,23 @@ button {
 
 /* ANIM — Apple keynote ultra smooth */
 .logo-animated {
-    width:160px;
+    width:180px;
     margin-bottom:10px;
     will-change: transform, opacity, filter;
     filter: brightness(1.8);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     animation: logoIntro 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
                floatLogo 6s ease-in-out infinite 1.2s;
-}ansform: translateY(30px) scale(0.9);
+}
+
+.logo-animated:hover {
+    transform: scale(1.08);
+}
+
+@keyframes logoIntro {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
         filter: blur(8px);
     }
     100% {
