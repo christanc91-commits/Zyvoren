@@ -165,6 +165,27 @@ button {
 }
 
 /* ANIM */
+.logo-animated {
+    width:160px;
+    margin-bottom:10px;
+    animation: floatLogo 4s ease-in-out infinite, glowLogo 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatLogo {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes glowLogo {
+    from {
+        filter: drop-shadow(0 0 5px rgba(0,198,255,0.4));
+    }
+    to {
+        filter: drop-shadow(0 0 20px rgba(0,198,255,0.9));
+    }
+}
+
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -191,7 +212,7 @@ button {
 
 <header>
 <!-- 🖼️ LOGO -->
-<img src="Zyvoren 4.png" alt="Logo Zyvoren" style="width:160px;margin-bottom:10px;">
+<img src="Zyvoren 4.png" alt="Logo Zyvoren" class="logo-animated">
 <h1>Zyvoren</h1>
 <p>Lunettes de piscine haute performance</p>
 </header>
