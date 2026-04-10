@@ -285,9 +285,13 @@ button {
         <form action="https://formspree.io/f/meepbvyo" method="POST">
             <input type="hidden" name="_next" value="merci.html">
             <input type="hidden" name="_captcha" value="false">
-            <input type="text" name="nom" placeholder="Nom" style="padding:12px;border-radius:8px;border:none;">
-            <input type="email" name="email" placeholder="Email" style="padding:12px;border-radius:8px;border:none;">
-            <textarea name="message" placeholder="Message" style="padding:12px;border-radius:8px;border:none;"></textarea>
+
+            <div style="display:flex;flex-direction:column;gap:15px;margin-top:20px;">
+                <input type="text" name="nom" placeholder="Nom" required style="padding:12px;border-radius:8px;border:none;">
+                <input type="email" name="email" placeholder="Email" required style="padding:12px;border-radius:8px;border:none;">
+                <textarea name="message" placeholder="Message" required style="padding:12px;border-radius:8px;border:none;"></textarea>
+            </div>
+
             <button type="submit">Envoyer</button>
         </form>
     </div>
@@ -361,3 +365,10 @@ setTimeout(typeContact, 500);
 
 <!-- 📦 PAGE MERCI (à créer: merci.html) -->
 </html>
+
+
+
+
+
+
+
