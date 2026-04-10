@@ -3,16 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Zyvoren</title>
-
+<title>Zyvoren - Lunettes de Piscine</title>
 <style>
-
 body {
     margin: 0;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    color: white;
+    font-family: Arial, sans-serif;
+    color: #e6f1ff;
+    overflow-x: hidden;
     background: #020c1b;
+}
+
+/* 🌊 FOND EAU RÉALISTE */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(0,198,255,0.15), transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(29,78,216,0.2), transparent 60%),
+        linear-gradient(120deg, #020c1b, #0a192f, #112240);
+    animation: waterMove 25s linear infinite;
+    z-index: -3;
+}
+
+/* 💎 REFLETS PISCINE */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: repeating-radial-gradient(
+        circle at 50% 50%,
+        rgba(255,255,255,0.05) 0px,
+        rgba(255,255,255,0.05) 2px,
+        transparent 4px,
+        transparent 40px
+    );
+    animation: causticsMove 18s linear infinite;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    z-index: -2;
+}
+
+@keyframes waterMove {
+    0% { transform: translate(0,0); }
+    50% { transform: translate(-5%, -5%); }
+    100% { transform: translate(0,0); }
+}
+
+@keyframes causticsMove {
+    0% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-10%, -10%) scale(1.2); }
+    100% { transform: translate(0,0) scale(1); }
 }
 
 /* NAV */
@@ -22,46 +69,60 @@ nav {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 30px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(12px);
+    gap: 20px;
+    background: rgba(2,12,27,0.85);
+    backdrop-filter: blur(10px);
     padding: 15px;
     z-index: 1000;
 }
 
 nav a {
-    color: white;
+    color: #64ffda;
     text-decoration: none;
-    font-size: 14px;
-    letter-spacing: 1px;
+    font-weight: bold;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #00c6ff;
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 /* HEADER */
 header {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top: 70px;
     text-align: center;
-    margin-top: 100px;
-}
-
-.logo-animated {
-    width: 140px;
-    opacity: 0;
-    animation: fadeUp 1s ease forwards;
+    padding: 20px;
 }
 
 /* HERO */
 .hero {
     text-align: center;
-    padding: 120px 20px 80px;
+    padding: 100px 20px;
 }
 
 .hero h1 {
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 32px;
+    animation: fadeUp 1s ease forwards;
 }
 
 .hero p {
-    opacity: 0.7;
-    margin-top: 10px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.3s;
 }
 
 /* PRODUITS */
@@ -74,54 +135,80 @@ header {
 }
 
 .product {
-    background: #0a192f;
-    padding: 30px;
-    border-radius: 10px;
+    background: rgba(17,34,64,0.85);
+    padding: 25px;
+    border-radius: 15px;
     text-align: center;
-    width: 260px;
-    transition: 0.4s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    transform: translateY(40px);
+}
+
+.product.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .product:hover {
-    transform: translateY(-8px);
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,198,255,0.3);
 }
 
-/* BOUTON STYLE NIKE */
 button {
-    margin-top: 15px;
     padding: 12px 20px;
-    border: none;
-    background: white;
-    color: black;
-    font-weight: bold;
-    border-radius: 30px;
+    margin-top: 10px;
     cursor: pointer;
-    transition: 0.3s;
+    border: none;
+    background: linear-gradient(45deg,#00c6ff,#1d4ed8);
+    color: white;
+    border-radius: 8px;
 }
 
-button:hover {
-    background: #ddd;
+/* ANIM — Apple keynote ultra smooth */
+.logo-animated {
+    width:180px;
+    margin-bottom:10px;
+    will-change: transform, opacity, filter;
+    filter: brightness(2.1);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: logoIntro 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+               floatLogo 6s ease-in-out infinite 1.2s;
 }
 
-/* SECTIONS */
-.section {
-    padding: 100px 20px;
-    text-align: center;
+
+
+@keyframes logoIntro {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
-.card {
-    max-width: 700px;
-    margin: auto;
-    background: #0a192f;
-    padding: 40px;
-    border-radius: 10px;
+@keyframes floatLogo {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
 }
 
-/* ANIM */
+@keyframes glowLogo {
+    from { filter: brightness(1.6); }
+    to { filter: brightness(1.8); }
+}
+    to {
+        filter: brightness(1.4) drop-shadow(0 0 18px rgba(0,198,255,0.9));
+    }
+}
+
 @keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -135,20 +222,22 @@ button:hover {
 <body>
 
 <nav>
-<a href="#">Accueil</a>
-<a href="#produits">Produits</a>
-<a href="#">À propos</a>
-<a href="#">Contact</a>
+<a href="index.html">Accueil</a>
+<a href="index.html#produits">Produits</a>
+<a href="about.html">À propos</a>
+<a href="contact.html">Contact</a>
 </nav>
 
 <header>
-<img src="Zyvoren 4.png" class="logo-animated">
-<h2>Zyvoren</h2>
+<!-- 🖼️ LOGO -->
+<img src="Zyvoren 4.png" alt="Logo Zyvoren" class="logo-animated">
+<h1>Zyvoren</h1>
+<p>Lunettes de piscine haute performance</p>
 </header>
 
 <section class="hero">
-<h1>See underwater differently</h1>
-<p>Clarity. Performance. Precision.</p>
+<h1>Voyez sous l'eau comme jamais auparavant</h1>
+<p>Une vision claire, un confort ultime</p>
 </section>
 
 <section id="produits" class="products">
@@ -157,8 +246,8 @@ button:hover {
 <h3>Zyvoren Pro</h3>
 <p>Anti-buée • Ultra confort</p>
 <p><strong>14,99€</strong></p>
-<a href="https://buy.stripe.com/6oU7sF0xPfS54sj5Sod7q03">
-<button>Acheter</button>
+<a href="https://buy.stripe.com/6oU7sF0xPfS54sj5Sod7q03" target="_blank">
+<button>🛒 Acheter</button>
 </a>
 </div>
 
@@ -166,37 +255,113 @@ button:hover {
 <h3>Zyvoren Elite</h3>
 <p>Vision HD • Design premium</p>
 <p><strong>24,99€</strong></p>
-<a href="https://buy.stripe.com/14A9AN0xP7lz1g75Sod7q05">
-<button>Acheter</button>
+<a href="https://buy.stripe.com/14A9AN0xP7lz1g75Sod7q05" target="_blank">
+<button>🛒 Acheter</button>
 </a>
 </div>
 
 </section>
 
-<section class="section">
-<div class="card">
-<h2>À propos</h2>
-<p>Zyvoren conçoit des lunettes de natation haut de gamme pensées pour la performance et le confort ultime.</p>
-</div>
+<!-- SECTION A PROPOS -->
+<section style="display:flex;justify-content:center;padding:80px 20px;">
+    <div style="max-width:700px;background:rgba(17,34,64,0.85);padding:40px;border-radius:15px;text-align:center;">
+        <h2 id="aboutTitle"></h2>
+        <p style="margin-top:20px;opacity:0.8;">
+            Zyvoren est une marque dédiée à la performance aquatique. Nous concevons des lunettes de natation offrant une vision parfaite, un confort extrême et un design premium.
+        </p>
+    </div>
 </section>
 
-<section class="section">
-<div class="card">
-<h2>Contact</h2>
-<form action="https://formspree.io/f/meepbvyo" method="POST">
-<input type="text" name="nom" placeholder="Nom" required><br><br>
-<input type="email" name="email" placeholder="Email" required><br><br>
-<textarea name="message" placeholder="Message" required></textarea><br><br>
-<button type="submit">Envoyer</button>
-</form>
-</div>
-</section>
 
-<footer style="text-align:center;padding:20px;opacity:0.6;">
-<p>© 2026 Zyvoren</p>
+
+<footer style="text-align:center; padding:20px;">
+<p>&copy; 2026 Zyvoren</p>
 </footer>
 
+<!-- 📩 PAGE CONTACT ANIMÉE -->
+<section id="contact" style="display:flex;justify-content:center;padding:80px 20px;">
+    <div class="contact-box" style="max-width:600px;width:100%;background:rgba(17,34,64,0.85);padding:40px;border-radius:15px;text-align:center;opacity:0;transform:translateY(40px);transition:all 0.8s ease;">
+        <h2 id="contactTitle"></h2>
+        <form action="https://formspree.io/f/meepbvyo" method="POST">
+            <input type="hidden" name="_next" value="merci.html">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div style="display:flex;flex-direction:column;gap:15px;margin-top:20px;">
+                <input type="text" name="nom" placeholder="Nom" required style="padding:12px;border-radius:8px;border:none;">
+                <input type="email" name="email" placeholder="Email" required style="padding:12px;border-radius:8px;border:none;">
+                <textarea name="message" placeholder="Message" required style="padding:12px;border-radius:8px;border:none;"></textarea>
+            </div>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</section>
+
+
+
+<script>
+const products = document.querySelectorAll('.product');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('active');
+        }
+    });
+});
+
+products.forEach(el => observer.observe(el));
+</script>
+
+<script>
+// ✨ EFFET LETTRE PAR LETTRE "A propos"
+const aboutText = "À propos de Zyvoren";
+const aboutEl = document.getElementById("aboutTitle");
+
+let i = 0;
+function typeAbout(){
+    if(i < aboutText.length){
+        aboutEl.innerHTML += aboutText.charAt(i) === " " ? "&nbsp;" : aboutText.charAt(i);
+        i++;
+        setTimeout(typeAbout, 60);
+    }
+}
+
+setTimeout(typeAbout, 300);
+</script>
+
+<script>
+// ✨ APPARITION CONTACT AU SCROLL
+const contactBox = document.querySelector('.contact-box');
+
+const contactObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            contactBox.style.opacity = 1;
+            contactBox.style.transform = 'translateY(0)';
+        }
+    });
+});
+
+if(contactBox) contactObserver.observe(contactBox);
+
+// ✨ TITRE LETTRE PAR LETTRE CONTACT
+const contactText = "Contactez-nous";
+const contactTitle = document.getElementById("contactTitle");
+
+let j = 0;
+function typeContact(){
+    if(j < contactText.length){
+        contactTitle.innerHTML += contactText.charAt(j) === " " ? "&nbsp;" : contactText.charAt(j);
+        j++;
+        setTimeout(typeContact, 60);
+    }
+}
+
+setTimeout(typeContact, 500);
+</script>
+
 </body>
+
+<!-- 📦 PAGE MERCI (à créer: merci.html) -->
 </html>
-
-
